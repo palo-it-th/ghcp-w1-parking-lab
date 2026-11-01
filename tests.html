@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MegaLane Parking · Tests</title>
+<style>
+  :root { --bg: #f5f6f8; --ink: #1d2330; --muted: #667085; --ok: #127a3e; --bad: #c0262d; --line: #d9dde5; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #11141a; --ink: #e8ebf1; --muted: #98a2b3; --ok: #4ade80; --bad: #f87171; --line: #2d3440; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 ui-monospace, Menlo, Consolas, monospace; }
+  main { max-width: 900px; margin: 0 auto; padding: 32px 16px; }
+  h1 { font: 600 20px system-ui, sans-serif; margin: 0 0 4px; }
+  .summary { margin: 0 0 20px; color: var(--muted); }
+  li { list-style: none; padding: 6px 0; border-bottom: 1px solid var(--line); }
+  ul { padding: 0; }
+  .ok::before { content: "✔ "; color: var(--ok); }
+  .bad::before { content: "✖ "; color: var(--bad); }
+  .err { color: var(--bad); white-space: pre-wrap; margin: 4px 0 0 20px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tests</h1>
+  <p class="summary" id="summary">Running…</p>
+  <ul id="results"></ul>
+</main>
+
+<script>window.Parking = {};</script>
+<script src="src/money.js"></script>
+<script src="src/time.js"></script>
+<script src="src/pricing.js"></script>
+<script src="src/stamps.js"></script>
+<script src="src/gate.js"></script>
+<script src="src/receipt.js"></script>
+<script src="src/report.js"></script>
+<script>
+  // A tiny stand-in for node:test and node:assert so the same test files run here.
+  window.TestKit = (function () {
+    const results = [];
+    function fail(message) { throw new Error(message); }
+    const assert = {
+      equal(actual, expected) {
+        if (!Object.is(actual, expected)) fail('Expected ' + JSON.stringify(expected) + ', got ' + JSON.stringify(actual));
+      },
+      deepEqual(actual, expected) {
+        if (JSON.stringify(actual) !== JSON.stringify(expected)) fail('Expected ' + JSON.stringify(expected) + ', got ' + JSON.stringify(actual));
+      },
+      match(actual, pattern) {
+        if (!pattern.test(actual)) fail('Expected text to match ' + pattern + ', got ' + JSON.stringify(actual));
+      },
+      ok(value) { if (!value) fail('Expected a truthy value, got ' + JSON.stringify(value)); },
+    };
+    function test(name, fn) {
+      try { fn(); results.push({ name, ok: true }); }
+      catch (e) { results.push({ name, ok: false, error: e.message }); }
+    }
+    return { test, assert, Parking: window.Parking, results };
+  })();
+</script>
+<script src="tests/pricing.test.js"></script>
+<script src="tests/stamps.test.js"></script>
+<script src="tests/gate.test.js"></script>
+<script src="tests/receipt.test.js"></script>
+<script src="tests/report.test.js"></script>
+<script>
+  const { results } = window.TestKit;
+  const list = document.getElementById('results');
+  for (const r of results) {
+    const li = document.createElement('li');
+    li.className = r.ok ? 'ok' : 'bad';
+    li.textContent = r.name;
+    if (!r.ok) {
+      const err = document.createElement('div');
+      err.className = 'err';
+      err.textContent = r.error;
+      li.appendChild(err);
+    }
+    list.appendChild(li);
+  }
+  const failed = results.filter((r) => !r.ok).length;
+  document.getElementById('summary').textContent =
+    results.length + ' tests · ' + (results.length - failed) + ' pass · ' + failed + ' fail' +
+    ' · new test file? add a <script> line for it at the bottom of tests.html';
+</script>
+</body>
+</html>

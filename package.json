@@ -1,0 +1,8 @@
+{
+  "name": "megalane-parking",
+  "private": true,
+  "description": "Workshop 1 lab app. No dependencies: tests run on Node's built-in test runner.",
+  "scripts": {
+    "test": "node --test"
+  }
+}
