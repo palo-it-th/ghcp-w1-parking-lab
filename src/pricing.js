@@ -17,12 +17,19 @@
     if (minutes <= GRACE_MINUTES) return 0;
 
     // Every started hour counts, from the moment the car came in.
+    // Free hours come off the first hours of the stay.
     const hours = Math.ceil(minutes / 60);
-    const billableHours = Math.max(0, hours - freeHours);
-    const fee = billableHours * HOURLY_RATE_SATANG;
+    const hoursByDay = {};
+    for (let hour = freeHours; hour < hours; hour++) {
+      const day = time.bangkokDate(time.addMinutes(entryAt, hour * 60));
+      hoursByDay[day] = (hoursByDay[day] || 0) + 1;
+    }
 
-    // Daily cap: never charge more than 300 baht.
-    return Math.min(fee, DAILY_CAP_SATANG);
+    // Daily cap: each calendar day is capped at 300 baht on its own.
+    return Object.values(hoursByDay).reduce(
+      (sum, dayHours) => sum + Math.min(dayHours * HOURLY_RATE_SATANG, DAILY_CAP_SATANG),
+      0,
+    );
   }
 
   return {
