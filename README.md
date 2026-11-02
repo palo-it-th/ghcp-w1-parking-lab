@@ -49,7 +49,7 @@ Lab repo สำหรับ Workshop 1 · Prompt + Context Engineering ของ
    node --test
    ```
 
-   ไม่มี Node ก็ทำทุก lab ได้ แค่ใน Lab 1.1 Copilot จะรัน test เองไม่ได้
+   ไม่มี Node ก็ทำทุก lab ได้ แค่ Copilot จะรัน test เองไม่ได้
 4. ตั้งค่า Copilot Chat: เปิด **New Chat** (ใช้ Copilot harness ที่เป็นค่าเริ่มต้น) → role **Agent** → model **Auto**
 5. เปิดไฟล์ [`labs/worksheet.md`](labs/worksheet.md) ไว้ข้างๆ ทุกครั้งที่รู้ตัวว่าพิมพ์ประโยคเดิมซ้ำ ให้จดลงในนั้น
 
@@ -57,6 +57,6 @@ Lab repo สำหรับ Workshop 1 · Prompt + Context Engineering ของ
 
 โจทย์เปิดทีละข้อ ทำข้อไหนเสร็จ ท้ายข้อนั้นจะบอกว่าข้อต่อไปอยู่ที่ไหน
 
-**→ เริ่มที่ [Lab 1.1 · ดู agent ทำงานหนึ่ง turn](labs/1.1-watch-one-turn.md)**
+**→ เริ่มที่ [Lab 1.1 · คลินิก prompt](labs/1.1-prompt-clinic.md)**
 
 ติดเกินสองนาที ยกมือได้เลย

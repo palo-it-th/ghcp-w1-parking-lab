@@ -8,15 +8,7 @@
 
 -
 
-## Lab 1.1 · หนึ่ง turn
-
-| คำถาม | คำตอบ |
-|---|---|
-| มี model request กี่รอบ | |
-| ไฟล์ที่อ่าน / คำสั่งที่รัน | |
-| ทำไมรอบหลังใช้ token มากกว่า | |
-
-## Lab 1.2 · คลินิก prompt
+## Lab 1.1 · คลินิก prompt
 
 | | ไฟล์ที่ diff แตะ |
 |---|---|
@@ -29,7 +21,7 @@ Prompt ใหม่ของฉัน:
 
 ```
 
-## Lab 1.3 · ตารางเปรียบเทียบ
+## Lab 1.2 · ตารางเปรียบเทียบ
 
 | เทคนิค | จำนวน test | ชื่อตรงตามสไตล์ทีมไหม | edge case ที่เจอ | test ผ่าน / fail | เวลาที่ใช้ |
 |---|---|---|---|---|---|
@@ -39,7 +31,7 @@ Prompt ใหม่ของฉัน:
 
 เทคนิคที่เจอ case ที่ฉันคงนึกไม่ถึง:
 
-## Lab 1.4 · Grill me
+## Lab 1.3 · Grill me
 
 Acceptance criteria:
 
@@ -55,7 +47,7 @@ Prompt ที่พร้อมส่ง (Context + Goal + Constraint):
 
 ```
 
-## Lab 1.5 · Context hygiene
+## Lab 1.4 · Context hygiene
 
 | วิธี | ตัวเลขบน context window control |
 |---|---|
